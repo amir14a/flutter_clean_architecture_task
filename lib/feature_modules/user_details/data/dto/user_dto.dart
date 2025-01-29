@@ -1,19 +1,21 @@
-class UserDto {
-  String name;
-  String email;
-  String? phone;
+import 'package:equatable/equatable.dart';
 
-  UserDto({
+class UserDto extends Equatable {
+  final String name;
+  final String email;
+  final String? phone;
+
+  const UserDto({
     required this.name,
     required this.email,
     this.phone,
   });
 
-  factory UserDto.fromMap(dynamic json) {
+  factory UserDto.fromMap(dynamic map) {
     return UserDto(
-      name: json["name"],
-      email: json['email'],
-      phone: json['phone'],
+      name: map["name"],
+      email: map['email'],
+      phone: map['phone'],
     );
   }
 
@@ -24,4 +26,7 @@ class UserDto {
     map['phone'] = phone;
     return map;
   }
+
+  @override
+  List<Object?> get props => [name, email, phone];
 }
