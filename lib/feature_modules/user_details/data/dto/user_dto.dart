@@ -27,6 +27,18 @@ class UserDto extends Equatable {
     return map;
   }
 
+  UserDto copyWith({
+    String? name,
+    String? email,
+    String? phone,
+  }) {
+    return UserDto(
+      name: name ?? this.name,
+      email: email ?? this.email,
+      phone: phone ?? this.phone,
+    );
+  }
+
   @override
   List<Object?> get props => [name, email, phone];
 }

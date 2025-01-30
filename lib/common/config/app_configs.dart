@@ -13,3 +13,5 @@ String get APP_BASE_URL {
     AppEnvironment.production => PRODUCTION_BASE_URL,
   };
 }
+
+const USE_REMOTE_DATA_SOURCE = false;
