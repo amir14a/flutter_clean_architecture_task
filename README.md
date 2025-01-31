@@ -1,4 +1,4 @@
-<a href=”https://github.com/amir14a/flutter_clean_architecture_task/actions"><img src=”https://github.com/amir14a/flutter_clean_architecture_task/actions/workflows/ci_actions.yml/badge.svg" alt=”Build Status”></a> <a href=”https://github.com/amir14a/flutter_clean_architecture_task/actions"><img src=”https://github.com/amir14a/flutter_clean_architecture_task/actions/workflows/cd_actions.yml/badge.svg" alt=”Build Status”></a>
+<a href="https://github.com/amir14a/flutter_clean_architecture_task/actions"><img src="https://github.com/amir14a/flutter_clean_architecture_task/actions/workflows/ci_actions.yml/badge.svg" alt="Build Status"></a> <a href="https://github.com/amir14a/flutter_clean_architecture_task/actions"><img src="https://github.com/amir14a/flutter_clean_architecture_task/actions/workflows/cd_actions.yml/badge.svg" alt="Build Status"></a>
 # Flutter Clean Architecture Task by AmirAbbas Jannatian
 
 ## About this repository
@@ -48,7 +48,7 @@ To do that, follow these commands:
 git clone git@github.com:amir14a/flutter_clean_architecture_task.git
 cd flutter_clean_architecture_task
 ```
-2- Create a file named .env and set SHARED_PREFERENCES_KEY value like this example:
+2- Create a file named .env in the root of project and set SHARED_PREFERENCES_KEY value like this example:
 > [!CAUTION]
 > Your value must be 16 characters.
 
