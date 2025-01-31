@@ -3,7 +3,7 @@ name: Continuous Delivery (CD) Actions
 on:
   push:
     branches:
-      - release
+      - release/*
   workflow_dispatch:
     inputs:
       tag:
