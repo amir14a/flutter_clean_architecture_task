@@ -6,3 +6,5 @@ const TEXT_STYLE_SUB_TITLE = TextStyle(color: TEXT_SECONDARY, fontWeight: FontWe
 const TEXT_STYLE_NORMAL = TextStyle(color: TEXT_NORMAL, fontSize: 14);
 const TEXT_STYLE_PRIMARY_BUTTON = TextStyle(color: Colors.white, fontSize: 16);
 const TEXT_STYLE_HINT = TextStyle(color: TEXT_HINT, fontSize: 14);
+const TEXT_STYLE_SUCCESS = TextStyle(color: TEXT_SUCCESS, fontSize: 14);
+const TEXT_STYLE_FAILED = TextStyle(color: TEXT_FAILED, fontSize: 14);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_clean_architecture_task/common/config/app_configs.dart';
 import 'package:shimmer/shimmer.dart';
 
 class InputShimmer extends StatelessWidget {
@@ -9,7 +10,7 @@ class InputShimmer extends StatelessWidget {
     return Shimmer.fromColors(
       baseColor: Colors.black12,
       highlightColor: Colors.grey,
-      period: Duration(milliseconds: 700),
+      period: APP_ANIMATION_DURATION,
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,

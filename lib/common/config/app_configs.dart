@@ -16,3 +16,4 @@ String get APP_BASE_URL {
 
 const USE_REMOTE_DATA_SOURCE = false;
 const FAKE_DELAY_DURATION = Duration(milliseconds: 1500);
+const APP_ANIMATION_DURATION = Duration(milliseconds: 700);

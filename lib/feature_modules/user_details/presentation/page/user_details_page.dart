@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_clean_architecture_task/common/config/app_configs.dart';
 import 'package:flutter_clean_architecture_task/common/strings/app_strings_en.dart';
 import 'package:flutter_clean_architecture_task/common/styles/colors.dart';
 import 'package:flutter_clean_architecture_task/common/styles/text_styles.dart';
@@ -31,7 +32,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
       backgroundColor: PRIMARY_COLOR,
       body: BlocBuilder<UserDetailsPageCubit, UserDetailsPageState>(
         builder: (BuildContext context, UserDetailsPageState state) {
-          if (state is UserDetailsLoaded && state.userDto.phone?.isNotEmpty == true) {
+          if (state is UserDetailsLoaded && state.baseClass && state.userDto.phone?.isNotEmpty == true) {
             _phoneTextController.text = state.userDto.phone!;
           }
           return Column(
@@ -72,6 +73,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                       context.read<UserDetailsPageCubit>().fetchUserDetails();
                     },
                     child: SingleChildScrollView(
+                      physics: AlwaysScrollableScrollPhysics(),
                       child: Column(
                         children: [
                           const SizedBox(height: 16),
@@ -94,13 +96,13 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 8, horizontal: 24),
                             child: AnimatedSwitcher(
-                              duration: Duration(milliseconds: 700),
+                              duration: APP_ANIMATION_DURATION,
                               child: state is UserDetailsLoading
                                   ? InputShimmer()
                                   : state is UserDetailsLoaded
                                       ? AppTextBox(text: state.userDto.name)
                                       : state is UserDetailsFailedToLoad
-                                          ? AppTextBox(text: 'error', key: Key('errorTextBox'))
+                                          ? AppTextBox(text: ERROR_LOADING_USER, key: Key('errorTextBox'))
                                           : SizedBox(),
                             ),
                           ),
@@ -118,13 +120,13 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 8, horizontal: 24),
                             child: AnimatedSwitcher(
-                              duration: Duration(milliseconds: 700),
+                              duration: APP_ANIMATION_DURATION,
                               child: state is UserDetailsLoading
                                   ? InputShimmer()
                                   : state is UserDetailsLoaded
                                       ? AppTextBox(text: state.userDto.email)
                                       : state is UserDetailsFailedToLoad
-                                          ? AppTextBox(text: 'Error!', key: Key('errorTextBox'))
+                                          ? AppTextBox(text: ERROR_LOADING_USER, key: Key('errorTextBox'))
                                           : SizedBox(),
                             ),
                           ),
@@ -141,18 +143,59 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 8, horizontal: 24),
-                            child: TextField(
-                              decoration: InputDecoration(
-                                  hintText: PHONE_HINT,
-                                  border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
-                                  focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(16),
-                                      borderSide: BorderSide(color: PRIMARY_COLOR, width: 2)),
-                                  filled: true,
-                                  fillColor: Colors.white,
-                                  hintStyle: TEXT_STYLE_HINT),
-                            ),
+                            child: state is UserDetailsLoading
+                                ? const InputShimmer()
+                                : TextField(
+                                    controller: _phoneTextController,
+                                    decoration: InputDecoration(
+                                      hintText: PHONE_HINT,
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(16),
+                                          borderSide: BorderSide(color: PRIMARY_COLOR, width: 2)),
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      hintStyle: TEXT_STYLE_HINT,
+                                    ),
+                                    keyboardType: TextInputType.phone,
+                                  ),
+                          ),
+                          AnimatedSize(
+                            duration: APP_ANIMATION_DURATION * .5,
+                            child:
+                                (state is UserPhoneSubmitted && state.message != null && state.message!.isNotEmpty)
+                                    ? SizedBox(
+                                        width: double.infinity,
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                                          child: Text(state.message!,
+                                              textAlign: TextAlign.center, style: TEXT_STYLE_SUCCESS),
+                                        ),
+                                      )
+                                    : (state is UserDetailsFailedToLoad &&
+                                            state.message != null &&
+                                            state.message!.isNotEmpty)
+                                        ? SizedBox(
+                                            width: double.infinity,
+                                            child: Padding(
+                                              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                                              child: Text(state.message!,
+                                                  textAlign: TextAlign.center, style: TEXT_STYLE_FAILED),
+                                            ),
+                                          )
+                                        : (state is UserPhoneFailedToSubmit &&
+                                                state.message != null &&
+                                                state.message!.isNotEmpty)
+                                            ? SizedBox(
+                                                width: double.infinity,
+                                                child: Padding(
+                                                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                                                  child: Text(state.message!,
+                                                      textAlign: TextAlign.center, style: TEXT_STYLE_FAILED),
+                                                ),
+                                              )
+                                            : SizedBox(),
                           ),
                           Padding(
                               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 24),
@@ -162,6 +205,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                                   context.read<UserDetailsPageCubit>().submitUserPhone(_phoneTextController.text);
                                 },
                                 disabled: !(state is UserPhoneSubmitted || state is UserDetailsLoaded),
+                                isLoading: state is UserPhoneSubmitting,
                               )),
                         ],
                       ),

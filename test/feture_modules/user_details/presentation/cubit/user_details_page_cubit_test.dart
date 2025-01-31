@@ -40,10 +40,15 @@ void main() {
     });
 
     test('Should emit Failed state when sending empty or white space', () async {
+      when(() => mockGetUserDetailsUseCase.execute()).thenAnswer((_) async => testUserEntity);
+      //Move to Loaded state
+      await userDetailsPageCubit.fetchUserDetails();
+
+      //Act
       await userDetailsPageCubit.submitUserPhone('  ');
       expect(
         userDetailsPageCubit.state,
-        UserPhoneFailedToSubmit(message: FAILED_TO_SUBMIT_PHONE_NUMBER, phone: '  '),
+        UserPhoneFailedToSubmit(testUserEntity.toUserDto(), message: FAILED_TO_SUBMIT_PHONE_NUMBER, phone: '  '),
       );
     });
   });

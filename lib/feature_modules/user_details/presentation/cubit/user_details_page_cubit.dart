@@ -32,20 +32,27 @@ class UserDetailsPageCubit extends Cubit<UserDetailsPageState> {
   }
 
   submitUserPhone(String userPhone) async {
-    emit(UserPhoneSubmitting());
-    // Performing fake delay to show loading animation in ui
-    await Future.delayed(FAKE_DELAY_DURATION);
-    try {
-      //We can also check some validation scenarios in presentation layer
-      if (userPhone.trim().isEmpty) {
-        throw EmptyInputException(message: USER_INPUT_IS_EMPTY);
+    if (state is UserDetailsLoaded) {
+      var userDto = (state as UserDetailsLoaded).userDto;
+      emit(UserPhoneSubmitting(userDto));
+      try {
+        //We can also check some validation scenarios in presentation layer
+        if (userPhone.trim().isEmpty) {
+          throw EmptyInputException(message: USER_INPUT_IS_EMPTY);
+        }
+        // Performing fake delay to show loading animation in ui
+        await Future.delayed(FAKE_DELAY_DURATION);
+        var result = await submitUserPhoneUseCase.execute(userPhone: userPhone);
+        if (result) {
+          emit(UserPhoneSubmitted(userDto, message: USER_PHONE_SUBMITTED_SUCCESSFULLY, phone: userPhone));
+        }
+      } on InvalidIranianPhoneException {
+        emit(UserPhoneFailedToSubmit(userDto, message: USER_PHONE_MUST_BE_IRANIAN_PHONE, phone: userPhone));
+      } on EmptyInputException catch (e) {
+        emit(UserPhoneFailedToSubmit(userDto, message: e.message, phone: userPhone));
+      } on Exception {
+        emit(UserPhoneFailedToSubmit(userDto, message: FAILED_TO_SUBMIT_PHONE_NUMBER, phone: userPhone));
       }
-      var result = await submitUserPhoneUseCase.execute(userPhone: userPhone);
-      if (result) emit(UserPhoneSubmitted(message: USER_PHONE_SUBMITTED_SUCCESSFULLY, phone: userPhone));
-    } on InvalidIranianPhoneException {
-      emit(UserPhoneFailedToSubmit(message: USER_PHONE_MUST_BE_IRANIAN_PHONE, phone: userPhone));
-    } on Exception {
-      emit(UserPhoneFailedToSubmit(message: FAILED_TO_SUBMIT_PHONE_NUMBER, phone: userPhone));
     }
   }
 }

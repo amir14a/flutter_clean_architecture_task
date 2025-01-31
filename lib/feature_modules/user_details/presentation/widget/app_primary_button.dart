@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_clean_architecture_task/common/config/app_configs.dart';
 import 'package:flutter_clean_architecture_task/common/styles/colors.dart';
 import 'package:flutter_clean_architecture_task/common/styles/text_styles.dart';
 
@@ -18,7 +19,8 @@ class AppPrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Opacity(
+    return AnimatedOpacity(
+      duration: APP_ANIMATION_DURATION,
       opacity: disabled ? 0.6 : 1,
       child: IgnorePointer(
         ignoring: disabled,
@@ -38,14 +40,24 @@ class AppPrimaryButton extends StatelessWidget {
                 child: Center(
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Expanded(
-                        child: Text(
-                          text,
-                          style: TEXT_STYLE_PRIMARY_BUTTON,
-                          textAlign: TextAlign.center,
+                      if (isLoading)
+                        SizedBox.square(
+                          dimension: 24,
+                          child: CircularProgressIndicator(
+                            color: Colors.white,
+                            strokeCap: StrokeCap.round,
+                          ),
+                        )
+                      else
+                        Expanded(
+                          child: Text(
+                            text,
+                            style: TEXT_STYLE_PRIMARY_BUTTON,
+                            textAlign: TextAlign.center,
+                          ),
                         ),
-                      ),
                     ],
                   ),
                 ),

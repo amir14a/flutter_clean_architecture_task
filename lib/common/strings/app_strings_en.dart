@@ -10,3 +10,4 @@ const YOUR_EMAIL = "Your email (can't modify): ";
 const YOUR_PHONE = "Your phone: ";
 const PHONE_HINT = 'e.g: 09399880341';
 const SUBMIT = 'Submit';
+const ERROR_LOADING_USER = 'There is a problem while fetching data! pull page to retry.';
