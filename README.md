@@ -7,6 +7,7 @@ This is a code challenge task that written in flutter and dart. it uses clean ar
 
 ## Goal
 A modular app with a single feature called "UserDetails." This page displays the user's name and email in a simple UI, and the user can enter their phone number to be saved in either remote or local data sources. Non-Iranian phone numbers should not be accepted.
+
 I followed "Separation Of Concers" concept and implement each layer as separate as possible from other layers.
 
 ## Tools and Technologies
@@ -29,13 +30,15 @@ These tools and technologies helped me during the development proccess of this a
 ## CI/CD
 
 **Continuous Integration (CI):** in summary, to run all tests automatically and verifying application has correct functionality every time we write a new code.
+
 **Continuous Delivery (CI):** in summary, to compile and generate final exports automatically that users can install them on their devices.
+
 Fortunately, using GitHub's excellent feature called GitHub Actions, both of these purposes have been implemented for this project. You can view the test results [here](https://github.com/amir14a/flutter_clean_architecture_task/actions/workflows/cd_actions.yml), and the installable outputs are available below.
 
 - [🌎 Open web application 🌎](https://amir14a.github.io/flutter_clean_architecture_task/)
-- [🤖 Download apk for android 🤖](https://github.com/amir14a/flutter_clean_architecture_task/releases/latest)
+- [🤖 Download .apk for android 🤖](https://github.com/amir14a/flutter_clean_architecture_task/releases/latest)
   * You need to allowing unknown sources in android settings to install apk from your browser.
-- [📱 Download apk for iOS 📱](https://github.com/amir14a/flutter_clean_architecture_task/releases/latest)
+- [📱 Download .ipa for iOS 📱](https://github.com/amir14a/flutter_clean_architecture_task/releases/latest)
   * You can install iOS export on your phone with help of this great service: [sideloadly.io](https://sideloadly.io)
 
 ## Installation
