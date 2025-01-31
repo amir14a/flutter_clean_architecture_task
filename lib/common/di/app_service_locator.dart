@@ -7,13 +7,14 @@ import 'package:flutter_clean_architecture_task/feature_modules/user_details/dat
 import 'package:flutter_clean_architecture_task/feature_modules/user_details/domain/use_case/get_user_details_use_case.dart';
 import 'package:flutter_clean_architecture_task/feature_modules/user_details/domain/use_case/submit_user_phone_use_case.dart';
 import 'package:flutter_clean_architecture_task/feature_modules/user_details/presentation/cubit/user_details_page_cubit.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get_it/get_it.dart';
 
 GetIt getIt = GetIt.instance;
 
 provideDependencies() async {
   //provide encryptedSharedPreferencesAsync
-  await EncryptedSharedPreferencesAsync.initialize("123456789aaasfgh"); //TODO: load keys from env
+  await EncryptedSharedPreferencesAsync.initialize(dotenv.get('SHARED_PREFERENCES_KEY'));
   getIt.registerSingleton(EncryptedSharedPreferencesAsync.getInstance());
 
   //provide local data source
