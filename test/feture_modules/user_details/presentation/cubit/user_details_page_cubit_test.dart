@@ -48,7 +48,7 @@ void main() {
       await userDetailsPageCubit.submitUserPhone('  ');
       expect(
         userDetailsPageCubit.state,
-        UserPhoneFailedToSubmit(testUserEntity.toUserDto(), message: FAILED_TO_SUBMIT_PHONE_NUMBER, phone: '  '),
+        UserPhoneFailedToSubmit(testUserEntity.toUserDto(), message: USER_INPUT_IS_EMPTY, phone: '  '),
       );
     });
   });
