@@ -1,0 +1,8 @@
+import 'dart:ui';
+
+const PRIMARY_COLOR = Color(0xFF3F51B5);
+const TEXT_NORMAL = Color(0xFF03030A);
+const TEXT_SECONDARY = Color(0xFF656565);
+const TEXT_HINT = Color(0xCBAAAAAA);
+const LOCKED_INPUT_BACKGROUND = Color(0xFFBDBDBD);
+const BACKGROUND_COLOR = Color(0xFFEEEEEE);

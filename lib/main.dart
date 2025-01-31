@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_clean_architecture_task/feature_modules/user_details/presentation/page/user_details_page.dart';
 
 void main() {
   runApp(const MainApp());
@@ -10,11 +11,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+      home: UserDetailsPage(),
     );
   }
 }
