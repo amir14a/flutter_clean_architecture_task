@@ -23,7 +23,7 @@ void main() {
           remoteDataSource: mockRemoteDataSource, localDataSource: mockLocalDataSource, useRemote: false);
       //Mock local user return
       when(() => mockLocalDataSource.fetchUserDto()).thenAnswer((_) async => testUserEntity.toUserDto());
-      final result = await userRepositoryImpl.getUserInfo();
+      final result = await userRepositoryImpl.getUserDetails();
       expect(result, testUserEntity);
       verify(() => mockLocalDataSource.fetchUserDto()).called(1);
       verifyNever(() => mockRemoteDataSource.fetchUserDetails(endpoint: FETCH_USER_DETAILS_ENDPOINT));
@@ -41,7 +41,7 @@ void main() {
       when(() => mockLocalDataSource.saveUserDto(userDto: testUserEntity.toUserDto()))
           .thenAnswer((_) async => true);
 
-      final result = await userRepositoryImpl.getUserInfo();
+      final result = await userRepositoryImpl.getUserDetails();
       expect(result, testUserEntity);
       verify(() => mockRemoteDataSource.fetchUserDetails(endpoint: FETCH_USER_DETAILS_ENDPOINT)).called(1);
       verify(() => mockLocalDataSource.saveUserDto(userDto: testUserEntity.toUserDto())).called(1);

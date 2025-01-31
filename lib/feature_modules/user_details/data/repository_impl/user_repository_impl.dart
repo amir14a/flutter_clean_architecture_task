@@ -23,7 +23,7 @@ class UserRepositoryImpl implements UserRepository {
         _localDataSource = localDataSource;
 
   @override
-  Future<UserEntity> getUserInfo() async {
+  Future<UserEntity> getUserDetails() async {
     late UserDto userDto;
     if (!_useRemote) {
       userDto = await _localDataSource.fetchUserDto();
