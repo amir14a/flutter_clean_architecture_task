@@ -49,7 +49,7 @@ class UserRepositoryImpl implements UserRepository {
           await _remoteDataSource.saveUserDetails(endpoint: SAVE_USER_DETAILS_ENDPOINT, userDto: newUserDto);
       return result;
     } else {
-      var result = await _localDataSource.saveUserDto(userDto: localUserDto);
+      var result = await _localDataSource.saveUserDto(userDto: newUserDto);
       return result;
     }
   }
