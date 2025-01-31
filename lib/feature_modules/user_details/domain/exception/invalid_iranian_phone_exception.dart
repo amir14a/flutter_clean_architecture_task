@@ -1,1 +1,0 @@
-class InvalidIranianPhoneException implements Exception {}
