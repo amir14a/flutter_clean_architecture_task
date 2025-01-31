@@ -1,0 +1,26 @@
+name: Continuous Integration (CI) Actions
+
+on:
+  push:
+    branches:
+      - develop
+      - release
+      - feature/*
+  workflow_dispatch:
+
+jobs:
+  running-tests:
+    name: ✅ Running Flutter Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      - name: Get dependencies
+        run: flutter pub get
+      - name: Creating env file
+        run: printf 'SHARED_PREFERENCES_KEY=${{ secrets.SHARED_PREFERENCES_KEY }}\n' >> .env
+      - name: Run tests
+        run: flutter test
