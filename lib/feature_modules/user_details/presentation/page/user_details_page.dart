@@ -19,10 +19,12 @@ class UserDetailsPage extends StatefulWidget {
 
 class _UserDetailsPageState extends State<UserDetailsPage> {
   final _phoneTextController = TextEditingController();
+  late UserDetailsPageCubit userDetailsPageCubit;
 
   @override
   void initState() {
-    context.read<UserDetailsPageCubit>().fetchUserDetails();
+    userDetailsPageCubit = context.read<UserDetailsPageCubit>();
+    userDetailsPageCubit.fetchUserDetails();
     super.initState();
   }
 
@@ -202,7 +204,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                               child: AppPrimaryButton(
                                 text: SUBMIT,
                                 onTap: () {
-                                  context.read<UserDetailsPageCubit>().submitUserPhone(_phoneTextController.text);
+                                  userDetailsPageCubit.submitUserPhone(_phoneTextController.text);
                                 },
                                 disabled: !(state is UserPhoneSubmitted || state is UserDetailsLoaded),
                                 isLoading: state is UserPhoneSubmitting,
