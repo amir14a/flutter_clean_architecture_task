@@ -19,10 +19,12 @@ class UserDetailsPage extends StatefulWidget {
 
 class _UserDetailsPageState extends State<UserDetailsPage> {
   final _phoneTextController = TextEditingController();
+  late UserDetailsPageCubit userDetailsPageCubit;
 
   @override
   void initState() {
-    context.read<UserDetailsPageCubit>().fetchUserDetails();
+    userDetailsPageCubit = context.read<UserDetailsPageCubit>();
+    userDetailsPageCubit.fetchUserDetails();
     super.initState();
   }
 
@@ -41,14 +43,14 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 48),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 48),
                     child: Container(
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.white, width: 5),
                         shape: BoxShape.circle,
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(12),
+                      child: const Padding(
+                        padding: EdgeInsets.all(12),
                         child: Icon(
                           Icons.person,
                           size: 48,
@@ -61,7 +63,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
               ),
               Expanded(
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: BACKGROUND_COLOR,
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(32),
@@ -73,17 +75,17 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                       context.read<UserDetailsPageCubit>().fetchUserDetails();
                     },
                     child: SingleChildScrollView(
-                      physics: AlwaysScrollableScrollPhysics(),
+                      physics: const AlwaysScrollableScrollPhysics(),
                       child: Column(
                         children: [
                           const SizedBox(height: 16),
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [Text(USER_DETAILS, style: TEXT_STYLE_TITLE)],
                           ),
                           const SizedBox(height: 4),
-                          Divider(indent: 16, endIndent: 16),
-                          Padding(
+                          const Divider(indent: 16, endIndent: 16),
+                          const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 24),
                             child: SizedBox(
                               width: double.infinity,
@@ -94,20 +96,20 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
                             child: AnimatedSwitcher(
                               duration: APP_ANIMATION_DURATION,
                               child: state is UserDetailsLoading
-                                  ? InputShimmer()
+                                  ? const InputShimmer()
                                   : state is UserDetailsLoaded
                                       ? AppTextBox(text: state.userDto.name)
                                       : state is UserDetailsFailedToLoad
-                                          ? AppTextBox(text: ERROR_LOADING_USER, key: Key('errorTextBox'))
-                                          : SizedBox(),
+                                          ? const AppTextBox(text: ERROR_LOADING_USER, key: Key('errorTextBox'))
+                                          : const SizedBox(),
                             ),
                           ),
                           const SizedBox(height: 16),
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 24),
                             child: SizedBox(
                               width: double.infinity,
@@ -118,20 +120,20 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
                             child: AnimatedSwitcher(
                               duration: APP_ANIMATION_DURATION,
                               child: state is UserDetailsLoading
-                                  ? InputShimmer()
+                                  ? const InputShimmer()
                                   : state is UserDetailsLoaded
                                       ? AppTextBox(text: state.userDto.email)
                                       : state is UserDetailsFailedToLoad
-                                          ? AppTextBox(text: ERROR_LOADING_USER, key: Key('errorTextBox'))
-                                          : SizedBox(),
+                                          ? const AppTextBox(text: ERROR_LOADING_USER, key: Key('errorTextBox'))
+                                          : const SizedBox(),
                             ),
                           ),
                           const SizedBox(height: 16),
-                          Padding(
+                          const Padding(
                             padding: EdgeInsets.symmetric(horizontal: 24),
                             child: SizedBox(
                               width: double.infinity,
@@ -142,7 +144,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
                             child: state is UserDetailsLoading
                                 ? const InputShimmer()
                                 : TextField(
@@ -153,7 +155,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                                           borderRadius: BorderRadius.circular(16), borderSide: BorderSide.none),
                                       focusedBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(16),
-                                          borderSide: BorderSide(color: PRIMARY_COLOR, width: 2)),
+                                          borderSide: const BorderSide(color: PRIMARY_COLOR, width: 2)),
                                       filled: true,
                                       fillColor: Colors.white,
                                       hintStyle: TEXT_STYLE_HINT,
@@ -168,7 +170,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                                     ? SizedBox(
                                         width: double.infinity,
                                         child: Padding(
-                                          padding: EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                                          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
                                           child: Text(state.message!,
                                               textAlign: TextAlign.center, style: TEXT_STYLE_SUCCESS),
                                         ),
@@ -179,7 +181,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                                         ? SizedBox(
                                             width: double.infinity,
                                             child: Padding(
-                                              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                                              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
                                               child: Text(state.message!,
                                                   textAlign: TextAlign.center, style: TEXT_STYLE_FAILED),
                                             ),
@@ -190,19 +192,19 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                                             ? SizedBox(
                                                 width: double.infinity,
                                                 child: Padding(
-                                                  padding: EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                                                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
                                                   child: Text(state.message!,
                                                       textAlign: TextAlign.center, style: TEXT_STYLE_FAILED),
                                                 ),
                                               )
-                                            : SizedBox(),
+                                            : const SizedBox(),
                           ),
                           Padding(
-                              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 24),
+                              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 24),
                               child: AppPrimaryButton(
                                 text: SUBMIT,
                                 onTap: () {
-                                  context.read<UserDetailsPageCubit>().submitUserPhone(_phoneTextController.text);
+                                  userDetailsPageCubit.submitUserPhone(_phoneTextController.text);
                                 },
                                 disabled: !(state is UserPhoneSubmitted || state is UserDetailsLoaded),
                                 isLoading: state is UserPhoneSubmitting,
