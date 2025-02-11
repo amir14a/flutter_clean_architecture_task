@@ -18,7 +18,7 @@ class InputShimmer extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
           ),
           child: ConstrainedBox(
-            constraints: BoxConstraints(
+            constraints: const BoxConstraints(
               minWidth: double.infinity,
               minHeight: kMinInteractiveDimension,
             ),

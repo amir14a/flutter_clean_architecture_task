@@ -31,7 +31,7 @@ class AppPrimaryButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
             onTap: onTap,
             child: ConstrainedBox(
-              constraints: BoxConstraints(
+              constraints: const BoxConstraints(
                 minWidth: double.infinity,
                 minHeight: kMinInteractiveDimension,
               ),
@@ -43,7 +43,7 @@ class AppPrimaryButton extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       if (isLoading)
-                        SizedBox.square(
+                        const SizedBox.square(
                           dimension: 24,
                           child: RepaintBoundary(
                             child: CircularProgressIndicator(
