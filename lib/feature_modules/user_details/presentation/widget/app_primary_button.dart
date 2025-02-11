@@ -45,9 +45,11 @@ class AppPrimaryButton extends StatelessWidget {
                       if (isLoading)
                         SizedBox.square(
                           dimension: 24,
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                            strokeCap: StrokeCap.round,
+                          child: RepaintBoundary(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeCap: StrokeCap.round,
+                            ),
                           ),
                         )
                       else

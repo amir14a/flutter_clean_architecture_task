@@ -7,19 +7,21 @@ class InputShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Shimmer.fromColors(
-      baseColor: Colors.black12,
-      highlightColor: Colors.grey,
-      period: APP_ANIMATION_DURATION,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            minWidth: double.infinity,
-            minHeight: kMinInteractiveDimension,
+    return RepaintBoundary(
+      child: Shimmer.fromColors(
+        baseColor: Colors.black12,
+        highlightColor: Colors.grey,
+        period: APP_ANIMATION_DURATION,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              minWidth: double.infinity,
+              minHeight: kMinInteractiveDimension,
+            ),
           ),
         ),
       ),
