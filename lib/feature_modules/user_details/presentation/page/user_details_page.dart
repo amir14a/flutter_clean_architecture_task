@@ -34,8 +34,8 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
       backgroundColor: PRIMARY_COLOR,
       body: BlocBuilder<UserDetailsPageCubit, UserDetailsPageState>(
         builder: (BuildContext context, UserDetailsPageState state) {
-          if (state is UserDetailsLoaded && state.baseClass && state.userDto.phone?.isNotEmpty == true) {
-            _phoneTextController.text = state.userDto.phone!;
+          if (state is UserDetailsLoaded && state.baseClass && state.userEntity.phone?.isNotEmpty == true) {
+            _phoneTextController.text = state.userEntity.phone!;
           }
           return Column(
             children: [
@@ -102,7 +102,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                               child: state is UserDetailsLoading
                                   ? const InputShimmer()
                                   : state is UserDetailsLoaded
-                                      ? AppTextBox(text: state.userDto.name)
+                                      ? AppTextBox(text: state.userEntity.name)
                                       : state is UserDetailsFailedToLoad
                                           ? const AppTextBox(text: ERROR_LOADING_USER, key: Key('errorTextBox'))
                                           : const SizedBox(),
@@ -126,7 +126,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                               child: state is UserDetailsLoading
                                   ? const InputShimmer()
                                   : state is UserDetailsLoaded
-                                      ? AppTextBox(text: state.userDto.email)
+                                      ? AppTextBox(text: state.userEntity.email)
                                       : state is UserDetailsFailedToLoad
                                           ? const AppTextBox(text: ERROR_LOADING_USER, key: Key('errorTextBox'))
                                           : const SizedBox(),
