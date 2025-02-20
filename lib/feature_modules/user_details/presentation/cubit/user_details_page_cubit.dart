@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_clean_architecture_task/common/config/app_configs.dart';
 import 'package:flutter_clean_architecture_task/common/exception/empty_input_exception.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_clean_architecture_task/feature_modules/user_details/pre
 class UserDetailsPageCubit extends Cubit<UserDetailsPageState> {
   final GetUserDetailsUseCase getUserDetailsUseCase;
   final SubmitUserPhoneUseCase submitUserPhoneUseCase;
+  final phoneTextController = TextEditingController();
 
   UserDetailsPageCubit({
     required this.getUserDetailsUseCase,
@@ -30,13 +32,14 @@ class UserDetailsPageCubit extends Cubit<UserDetailsPageState> {
     }
   }
 
-  submitUserPhone(String userPhone) async {
+  submitUserPhone() async {
     if (state is UserDetailsLoaded) {
+      var userPhone = phoneTextController.text;
       var userEntity = (state as UserDetailsLoaded).userEntity;
       emit(UserPhoneSubmitting(userEntity));
       try {
         //We can also check some validation scenarios in presentation layer
-        if (userPhone.trim().isEmpty) {
+        if (userPhone.isEmpty) {
           throw EmptyInputException(message: USER_INPUT_IS_EMPTY);
         }
         // Performing fake delay to show loading animation in ui
