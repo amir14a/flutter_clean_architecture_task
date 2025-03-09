@@ -20,7 +20,5 @@ jobs:
           channel: stable
       - name: Get dependencies
         run: flutter pub get
-      - name: Creating env file
-        run: printf 'SHARED_PREFERENCES_KEY=${{ secrets.SHARED_PREFERENCES_KEY }}\n' >> .env
       - name: Run tests
         run: flutter test
