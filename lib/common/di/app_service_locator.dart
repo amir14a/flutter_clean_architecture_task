@@ -13,7 +13,7 @@ GetIt getIt = GetIt.instance;
 
 provideDependencies() async {
   //provide encryptedSharedPreferencesAsync
-  await EncryptedSharedPreferencesAsync.initialize(const String.fromEnvironment('SHARED_PREFERENCES_KEY'));
+  await EncryptedSharedPreferencesAsync.initialize(const String.fromEnvironment('SHARED_PREFERENCES_KEY', defaultValue: 'thisisatestkey16'));
   getIt.registerSingleton(EncryptedSharedPreferencesAsync.getInstance());
 
   //provide local data source
