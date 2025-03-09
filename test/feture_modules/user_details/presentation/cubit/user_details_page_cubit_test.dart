@@ -1,5 +1,4 @@
 import 'package:flutter_clean_architecture_task/common/strings/app_strings_en.dart';
-import 'package:flutter_clean_architecture_task/feature_modules/user_details/data/mapper/user_mapper.dart';
 import 'package:flutter_clean_architecture_task/feature_modules/user_details/domain/entity/user_entity.dart';
 import 'package:flutter_clean_architecture_task/feature_modules/user_details/presentation/cubit/user_details_page_cubit.dart';
 import 'package:flutter_clean_architecture_task/feature_modules/user_details/presentation/cubit/user_details_page_state.dart';
@@ -35,7 +34,7 @@ void main() {
       await userDetailsPageCubit.fetchUserDetails();
       expect(
         userDetailsPageCubit.state,
-        UserDetailsLoaded(testUserEntity.toUserDto()),
+        UserDetailsLoaded(testUserEntity),
       );
     });
 
@@ -45,10 +44,11 @@ void main() {
       await userDetailsPageCubit.fetchUserDetails();
 
       //Act
-      await userDetailsPageCubit.submitUserPhone('  ');
+      userDetailsPageCubit.phoneTextController.text='  ';
+      await userDetailsPageCubit.submitUserPhone();
       expect(
         userDetailsPageCubit.state,
-        UserPhoneFailedToSubmit(testUserEntity.toUserDto(), message: USER_INPUT_IS_EMPTY, phone: '  '),
+        UserPhoneFailedToSubmit(testUserEntity, message: USER_INPUT_IS_EMPTY, phone: '  '),
       );
     });
   });

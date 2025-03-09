@@ -22,7 +22,7 @@ void main() {
     });
     testWidgets('Button should call its callback function after tap', (tester) async {
       await tester.binding.setSurfaceSize(const Size(1200, 1920));
-      final completer = Completer<void>();
+      final completer = Completer();
       await tester.pumpWidget(mockMainApp(
         child: AppPrimaryButton(text: 'test text', onTap: completer.complete),
       ));

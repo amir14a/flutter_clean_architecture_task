@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter_clean_architecture_task/feature_modules/user_details/data/dto/user_dto.dart';
+import 'package:flutter_clean_architecture_task/feature_modules/user_details/domain/entity/user_entity.dart';
 
 abstract class UserDetailsPageState {}
 
@@ -18,13 +18,13 @@ class UserPhoneSubmitting extends UserDetailsLoaded {
 }
 
 class UserDetailsLoaded extends UserDetailsPageState with EquatableMixin {
-  final UserDto userDto;
+  final UserEntity userEntity;
   final baseClass = true;
 
-  UserDetailsLoaded(this.userDto);
+  UserDetailsLoaded(this.userEntity);
 
   @override
-  List<Object?> get props => [userDto];
+  List<Object?> get props => [userEntity];
 }
 
 class UserDetailsFailedToLoad extends UserDetailsPageState with EquatableMixin {
@@ -46,7 +46,7 @@ class UserPhoneFailedToSubmit extends UserDetailsLoaded with EquatableMixin {
   bool get baseClass => false;
 
   @override
-  List<Object?> get props => [message, phone];
+  List<Object?> get props => [message, phone, ...super.props];
 }
 
 class UserPhoneSubmitted extends UserDetailsLoaded with EquatableMixin {
@@ -59,5 +59,5 @@ class UserPhoneSubmitted extends UserDetailsLoaded with EquatableMixin {
   bool get baseClass => false;
 
   @override
-  List<Object?> get props => [message, phone, userDto];
+  List<Object?> get props => [message, phone, ...super.props];
 }

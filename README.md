@@ -51,18 +51,15 @@ To do that, follow these commands:
 git clone git@github.com:amir14a/flutter_clean_architecture_task.git
 cd flutter_clean_architecture_task
 ```
-2- Create a file named .env in the root of the project and set SHARED_PREFERENCES_KEY value like this example:
+
+2- Consider a 16-character key for better security in saving local data.:
 > [!CAUTION]
 > You can set any string, but your string key must be 16 characters long.
 
-```.env
-SHARED_PREFERENCES_KEY=1234567891234567
-```
-
-3- Run flutter pub get and flutter run to run the application:
+3- Run flutter pub get and flutter run to run the application, you can define the key selected in step 2 as with dart-define and `SHARED_PREFERENCES_KEY` variable name:
 ```cmd
 flutter pub get
-flutter run
+flutter run --dart-define=SHARED_PREFERENCES_KEY=YOUR_KEY_HERE
 ```
 
 ## Video

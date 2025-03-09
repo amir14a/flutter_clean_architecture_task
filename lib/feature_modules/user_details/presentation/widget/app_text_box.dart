@@ -15,7 +15,7 @@ class AppTextBox extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           boxShadow: [BoxShadow(color: Colors.grey.shade300, blurRadius: 4, spreadRadius: 4)]),
       child: ConstrainedBox(
-        constraints: BoxConstraints(
+        constraints: const BoxConstraints(
           minWidth: double.infinity,
           minHeight: kMinInteractiveDimension,
         ),
@@ -26,7 +26,7 @@ class AppTextBox extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(child: Text(text, style: TEXT_STYLE_NORMAL)),
-                Icon(Icons.lock, color: TEXT_NORMAL, size: 24),
+                const Icon(Icons.lock, color: TEXT_NORMAL, size: 24),
               ],
             ),
           ),
