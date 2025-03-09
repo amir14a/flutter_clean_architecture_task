@@ -39,7 +39,7 @@ class UserDetailsPageCubit extends Cubit<UserDetailsPageState> {
       emit(UserPhoneSubmitting(userEntity));
       try {
         //We can also check some validation scenarios in presentation layer
-        if (userPhone.isEmpty) {
+        if (userPhone.trim().isEmpty) {
           throw EmptyInputException(message: USER_INPUT_IS_EMPTY);
         }
         // Performing fake delay to show loading animation in ui
