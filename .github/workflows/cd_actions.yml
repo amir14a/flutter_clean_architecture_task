@@ -33,8 +33,6 @@ jobs:
     needs: running-tests
     steps:
       - uses: actions/checkout@v3
-      - name: Creating env file
-        run: printf 'SHARED_PREFERENCES_KEY=${{ secrets.SHARED_PREFERENCES_KEY }}\n' >> .env
       - uses: subosito/flutter-action@v2
       - uses: bluefireteam/flutter-gh-pages@v8
         with:
@@ -42,6 +40,7 @@ jobs:
           webRenderer: canvaskit
           targetBranch: web-export
           baseHref: /flutter_clean_architecture_task/
+          customArgs: --dart-define="SHARED_PREFERENCES_KEY=${{ secrets.SHARED_PREFERENCES_KEY }}"
 
   build-apk-app:
     name: 🤖 Deploying android app to GitHub Releases
@@ -53,13 +52,11 @@ jobs:
         with:
           distribution: 'oracle'
           java-version: '17'
-      - name: Creating env file
-        run: printf 'SHARED_PREFERENCES_KEY=${{ secrets.SHARED_PREFERENCES_KEY }}\n' >> .env
       - uses: subosito/flutter-action@v2
       - run: flutter pub get
       - name: Set Release Tag
         run: echo "TAG_NAME=${{ github.event.inputs.tag || github.ref_name }}" >> $GITHUB_ENV
-      - run: flutter build apk --release --target-platform android-arm --split-per-abi
+      - run: flutter build apk --release --target-platform android-arm --split-per-abi --dart-define="SHARED_PREFERENCES_KEY=${{ secrets.SHARED_PREFERENCES_KEY }}"
       - name: Rename APK file with version tag
         run: mv build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk build/app/outputs/flutter-apk/anrdoid-app-${{ env.TAG_NAME }}-release.apk
       - name: Upload binaries to release
@@ -77,8 +74,6 @@ jobs:
     needs: running-tests
     steps:
       - uses: actions/checkout@v3
-      - name: Creating env file
-        run: printf 'SHARED_PREFERENCES_KEY=${{ secrets.SHARED_PREFERENCES_KEY }}\n' >> .env
       - uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
@@ -88,7 +83,7 @@ jobs:
         working-directory: ios
       - name: Set Release Tag
         run: echo "TAG_NAME=${{ github.event.inputs.tag || github.ref_name }}" >> $GITHUB_ENV
-      - run: flutter build ios --release --no-codesign
+      - run: flutter build ios --release --no-codesign --dart-define="SHARED_PREFERENCES_KEY=${{ secrets.SHARED_PREFERENCES_KEY }}"
       - run: mkdir Payload
         working-directory: build/ios/iphoneos
       - run: mv Runner.app/ Payload

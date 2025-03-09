@@ -10,23 +10,8 @@ import 'package:flutter_clean_architecture_task/feature_modules/user_details/pre
 import 'package:flutter_clean_architecture_task/feature_modules/user_details/presentation/widget/app_text_box.dart';
 import 'package:flutter_clean_architecture_task/feature_modules/user_details/presentation/widget/input_shimmer.dart';
 
-class UserDetailsPage extends StatefulWidget {
+class UserDetailsPage extends StatelessWidget {
   const UserDetailsPage({super.key});
-
-  @override
-  State<UserDetailsPage> createState() => _UserDetailsPageState();
-}
-
-class _UserDetailsPageState extends State<UserDetailsPage> {
-  final _phoneTextController = TextEditingController();
-  late UserDetailsPageCubit userDetailsPageCubit;
-
-  @override
-  void initState() {
-    userDetailsPageCubit = context.read<UserDetailsPageCubit>();
-    userDetailsPageCubit.fetchUserDetails();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +19,8 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
       backgroundColor: PRIMARY_COLOR,
       body: BlocBuilder<UserDetailsPageCubit, UserDetailsPageState>(
         builder: (BuildContext context, UserDetailsPageState state) {
-          if (state is UserDetailsLoaded && state.baseClass && state.userDto.phone?.isNotEmpty == true) {
-            _phoneTextController.text = state.userDto.phone!;
+          if (state is UserDetailsLoaded && state.baseClass && state.userEntity.phone?.isNotEmpty == true) {
+            context.read<UserDetailsPageCubit>().phoneTextController.text = state.userEntity.phone!;
           }
           return Column(
             children: [
@@ -102,7 +87,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                               child: state is UserDetailsLoading
                                   ? const InputShimmer()
                                   : state is UserDetailsLoaded
-                                      ? AppTextBox(text: state.userDto.name)
+                                      ? AppTextBox(text: state.userEntity.name)
                                       : state is UserDetailsFailedToLoad
                                           ? const AppTextBox(text: ERROR_LOADING_USER, key: Key('errorTextBox'))
                                           : const SizedBox(),
@@ -126,7 +111,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                               child: state is UserDetailsLoading
                                   ? const InputShimmer()
                                   : state is UserDetailsLoaded
-                                      ? AppTextBox(text: state.userDto.email)
+                                      ? AppTextBox(text: state.userEntity.email)
                                       : state is UserDetailsFailedToLoad
                                           ? const AppTextBox(text: ERROR_LOADING_USER, key: Key('errorTextBox'))
                                           : const SizedBox(),
@@ -148,7 +133,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                             child: state is UserDetailsLoading
                                 ? const InputShimmer()
                                 : TextField(
-                                    controller: _phoneTextController,
+                                    controller: context.read<UserDetailsPageCubit>().phoneTextController,
                                     decoration: InputDecoration(
                                       hintText: PHONE_HINT,
                                       border: OutlineInputBorder(
@@ -204,7 +189,7 @@ class _UserDetailsPageState extends State<UserDetailsPage> {
                               child: AppPrimaryButton(
                                 text: SUBMIT,
                                 onTap: () {
-                                  userDetailsPageCubit.submitUserPhone(_phoneTextController.text);
+                                  context.read<UserDetailsPageCubit>().submitUserPhone();
                                 },
                                 disabled: !(state is UserPhoneSubmitted || state is UserDetailsLoaded),
                                 isLoading: state is UserPhoneSubmitting,

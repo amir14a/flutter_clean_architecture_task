@@ -18,8 +18,8 @@ class MainApp extends StatelessWidget {
         PointerDeviceKind.trackpad,
       }),
       home: BlocProvider<UserDetailsPageCubit>(
-        create: (_) => getIt(),
-        child: UserDetailsPage(),
+        create: (_) => getIt()..fetchUserDetails(),
+        child: const UserDetailsPage(),
       ),
     );
   }
